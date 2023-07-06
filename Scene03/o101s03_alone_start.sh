@@ -65,7 +65,7 @@ then
     echo "o101s03-alone VM already exists. DELETING..."
     lxc stop o101s03-alone --force && sleep 2
     lxc delete o101s03-alone --force && sleep 2
-    lxc launch "images:debian/bookworm/default" o101s03-alone --vm --network o101-net --storage default
+    bash -c "lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default"
     sleep 5
     lxc list | grep o101s03-alone
     if [ $? -eq 0 ];
@@ -78,7 +78,7 @@ then
 else
     sleep 2
     echo "o101s03-alone is not present. CREATING..."
-    lxc launch "images:debian/bookworm/default" o101s03-alone --vm --network o101-net --storage default
+    bash -c "lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default"
     sleep 5
     lxc list | grep o101s03-alone
     if [ $? -eq 0 ];
