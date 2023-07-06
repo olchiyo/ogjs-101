@@ -26,6 +26,7 @@ then
 else
     echo "ERROR:: o101s03-alone is not present. Nothing to do. EXITING..."
     exit 1
+fi
 
 lxc storage volume list default | grep o101s03-alone-vol01
 if [ $? -eq 0 ]
@@ -35,6 +36,7 @@ then
 else
     echo "o101s03-alone-vol01 is not present. Nothing to do. EXITING..."
     exit 1
+fi
 
 lxc storage volume list default | grep o101s03-alone-vol02
 if [ $? -eq 0 ]
@@ -44,3 +46,4 @@ then
 else
     echo "o101s03-alone-vol01 is not present. Nothing to do. EXITING..."
     exit 1
+fi

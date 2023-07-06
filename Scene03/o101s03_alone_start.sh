@@ -37,6 +37,7 @@ then
     else
         echo -e "ERROR:: Storage "default" not in running state. EXITING..."
         exit 1
+    fi
 else 
     echo "ERROR:: Storage "default" does not exist EXITING..."
     exit 1
@@ -58,6 +59,7 @@ else
     else
         echo "ERROR:: o101s03-alone not created. EXITING..."
         exit 1
+fi
 
 lxc storage volume list default | grep o101s03-alone-vol01
 if [ $? -eq 0 ]
@@ -82,6 +84,7 @@ then
         lxc storage volume create default o101s03-alone-vol02 --type=block size=1073741824
         echo "Attaching o101s03-alone-vol02 to o101s03-alone..."
         lxc config device add o101s03-alone /dev/sdc disk pool=default source=o101s03-alone-vol02 
+    fi
 else
     echo "o101s03-alone-vol01 is not present. CREATING..."
     lxc storage volume create default o101s03-alone-vol01 --type=block size=1073741824
@@ -91,7 +94,7 @@ else
     lxc storage volume create default o101s03-alone-vol02 --type=block size=1073741824
     echo "Attaching o101s03-alone-vol02 to o101s03-alone..."
     lxc config device add o101s03-alone /dev/sdc disk pool=default source=o101s03-alone-vol02 
-
+fi
 
 
 
