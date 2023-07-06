@@ -47,3 +47,5 @@ else
     echo "o101s03-alone-vol01 is not present. Nothing to do. EXITING..."
     exit 1
 fi
+
+lxc network forward port remove o101-net $DNAT_IP tcp 10022
