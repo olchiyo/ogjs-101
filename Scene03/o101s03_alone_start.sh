@@ -17,9 +17,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-while [ -z $DNAT_IP ]; do
-    echo "Enter your DNAT_IP:"
-    read DNAT_IP
+if [ -z $DNAT_IP ]; 
+then
+    echo "please run command below and run the command again"
+    echo "export DNAT_IP=<Your DNAT IP>"
+    exit 1
 done
 
 if [[ $DNAT_IP =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
