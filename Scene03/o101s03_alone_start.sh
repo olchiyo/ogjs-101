@@ -22,7 +22,7 @@ then
     echo "please run command below and run the command again"
     echo "export DNAT_IP=<Your DNAT IP>"
     exit 1
-done
+fi
 
 if [[ $DNAT_IP =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo "success"
