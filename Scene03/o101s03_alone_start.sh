@@ -65,7 +65,7 @@ then
     echo "o101s03-alone VM already exists. DELETING..."
     lxc stop o101s03-alone --force && sleep 2
     lxc delete o101s03-alone --force && sleep 2
-    bash -c "lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default"
+    lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default
     sleep 5
     lxc list | grep o101s03-alone
     if [ $? -eq 0 ];
@@ -78,7 +78,7 @@ then
 else
     sleep 2
     echo "o101s03-alone is not present. CREATING..."
-    bash -c "lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default"
+    lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default
     sleep 5
     lxc list | grep o101s03-alone
     if [ $? -eq 0 ];
@@ -143,11 +143,11 @@ lxc network forward list o101-net | grep $DNAT_IP
 if [ $? -eq 1 ]
 then
     lxc network forward create o101-net $DNAT_IP
-    lxc network forward port add o101-net $DNAT_IP tcp 10022 $VM_IP 22
+    lxc network forward port add o101-net $DNAT_IP tcp 10103 $VM_IP 22
 else
-    lxc network forward port add o101-net $DNAT_IP tcp 10022 $VM_IP 22
+    lxc network forward port add o101-net $DNAT_IP tcp 10103 $VM_IP 22
 fi
 
 echo "Enter the following Command to connect to o101s03-alone --"
-printf 'ssh -p 10022 root@%s\n' "$DNAT_IP"
+printf 'ssh -p 10103 root@%s\n' "$DNAT_IP"
 

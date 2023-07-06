@@ -48,4 +48,4 @@ else
     exit 1
 fi
 
-lxc network forward port remove o101-net $DNAT_IP tcp 10022
+lxc network forward port remove o101-net $DNAT_IP tcp 10103
