@@ -76,6 +76,7 @@ then
         exit 1
     fi
 else
+    sleep 2
     echo "o101s03-alone is not present. CREATING..."
     lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default
     sleep 5
