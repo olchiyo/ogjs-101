@@ -70,7 +70,7 @@ then
     lxc list | grep o101s03-alone
     if [ $? -eq 0 ];
     then
-        echo -e "o101s03-alone successfully created."
+        echo "o101s03-alone successfully created."
     else
         echo "ERROR:: o101s03-alone not created. EXITING..."
         exit 1
