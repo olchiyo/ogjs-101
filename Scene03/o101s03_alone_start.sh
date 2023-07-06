@@ -43,7 +43,7 @@ else
 fi
 
 lxc storage list | grep default
-if [ $? -eq 0 ] 
+if [ $? -eq 0 ];
 then 
     echo "It is confirmed that Storage "default" exists"
     lxc storage list | grep CREATED
@@ -60,15 +60,15 @@ else
 fi
 
 lxc list | grep o101s03-alone
-if [ $? -eq 0 ]
+if [ $? -eq 0 ];
 then
     echo "o101s03-alone VM already exists. DELETING..."
-    lxc stop o101s03-alone --force
-    lxc delete o101s03-alone --force
+    lxc stop o101s03-alone --force && sleep 2
+    lxc delete o101s03-alone --force && sleep 2
     lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default
     sleep 5
     lxc list | grep o101s03-alone
-    if [ $? -eq 0 ]
+    if [ $? -eq 0 ];
     then
         echo -e "o101s03-alone successfully created."
     else
@@ -80,7 +80,7 @@ else
     lxc launch images:debian/bookworm/default o101s03-alone --vm --network o101-net --storage default
     sleep 5
     lxc list | grep o101s03-alone
-    if [ $? -eq 0 ]
+    if [ $? -eq 0 ];
     then
         echo -e "o101s03-alone successfully created."
     else
