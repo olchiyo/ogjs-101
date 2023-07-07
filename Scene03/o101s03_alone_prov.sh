@@ -19,10 +19,11 @@
 
 echo -e 'root\nroot' | passwd root
 apt-get -y update
-apt-get install -y openssh-server parted xfsprogs
+apt-get install -y openssh-server parted xfsprogs spell xz-utils gzip
 sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config
 bash -c 'echo "PermitRootLogin yes" >> /etc/ssh/sshd_config'
 systemctl restart ssh
+
 cat << EOF > /etc/locale.conf
 LANG=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8 
@@ -61,10 +62,8 @@ mkdir -p /srv/newjeans
 
 mount /dev/sdb1 /mnt/ongojishin
 mount /dev/sdb2 /opt/austin
-mount -o noexec,async /dev/sdc1 /srv/newjeans
+mount -o noexec,async,ro /dev/sdc1 /srv/newjeans
 
-mkdir -p /tmp/o101s03/
-mkdir -p /mnt/hybe/newjeans/
 mkdir -p /tmp/o101s03/maze/{01..10}/{01..10}/{01..10}/{01..10}
 
 # /tmp/o101s03/maze/01/01/02/03/ditto.txt
@@ -94,4 +93,23 @@ for i in {1..100}; do
     
     # Create the dummy file with random timestamp
     touch -d "$rand_date" "$rand_filename"
+done
+
+NUM_FILES=200
+DICT_FILE="/usr/share/dict/words"
+
+for ((i=1; i<=$NUM_FILES; i++))
+do
+    WORD=$(shuf -n 1 "$DICT_FILE")
+    touch /mnt/ongojishin/$WORD.txt
+done
+
+
+NUM_FILES=50
+DICT_FILE="/usr/share/dict/words"
+
+for ((i=1; i<=$NUM_FILES; i++))
+do
+    WORD=$(shuf -n 1 "$DICT_FILE")
+    touch /opt/austin/$WORD.md
 done
