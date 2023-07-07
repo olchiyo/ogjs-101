@@ -61,4 +61,37 @@ mkdir -p /srv/newjeans
 
 mount /dev/sdb1 /mnt/ongojishin
 mount /dev/sdb2 /opt/austin
-mount /dev/sdc1 /srv/newjeans
+mount -o noexec,async /dev/sdc1 /srv/newjeans
+
+mkdir -p /tmp/o101s03/
+mkdir -p /mnt/hybe/newjeans/
+mkdir -p /tmp/o101s03/maze/{01..10}/{01..10}/{01..10}/{01..10}
+
+# /tmp/o101s03/maze/01/01/02/03/ditto.txt
+
+cat << EOF > /tmp/o101s03/maze/01/03/04/09/relative_path.sh
+ls ../../06/07/../05/../../../01/02/03/ditto.txt 
+ls ../01/../03/../../../04/../09/01/../02/hypeboy.txt
+EOF
+
+current_time=$(date +%s)
+
+for i in {1..100}; do
+    # Generate a random number of days, hours, minutes, and seconds
+    rand_days=$((RANDOM % 365))
+    rand_hours=$((RANDOM % 24))
+    rand_minutes=$((RANDOM % 60))
+    rand_seconds=$((RANDOM % 60))
+    
+    # Calculate the random timestamp by adding the random time intervals
+    rand_timestamp=$((current_time + (rand_days * 24 * 60 * 60) + (rand_hours * 60 * 60) + (rand_minutes * 60) + rand_seconds))
+    
+    # Convert timestamp to date format
+    rand_date=$(date -d "@$rand_timestamp" +'%Y-%m-%d %H:%M:%S')
+    
+    # Generate a random file name
+    rand_filename="/tmp/o101s03/dummy_file_$i.txt"
+    
+    # Create the dummy file with random timestamp
+    touch -d "$rand_date" "$rand_filename"
+done
