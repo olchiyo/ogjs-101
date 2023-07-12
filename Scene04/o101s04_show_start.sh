@@ -17,19 +17,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-INSTANCE="o101s04-alone"
+INSTANCE="o101s04-show"
 NETWORK="o101-net"
 STORAGE="default"
-VOLUME_COUNT=2
-PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene03/o101s03_alone_prov.sh"
-DNAT_PORT=10104
+VOLUME_COUNT=0
+PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene04/o101s04_show_prov.sh"
+DNAT_PORT=11104
 
 function check_network()
 {
     lxc network list | grep $NETWORK
     if [ $? -eq 0 ] 
     then 
-        echo "It is confirmed that Network $NETWORK exists"
+        echo "[INFO] It is confirmed that Network $NETWORK exists"
     else 
         echo "[ERROR] $NETWORK does not exist. EXITING..."
         exit 1

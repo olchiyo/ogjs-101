@@ -2,7 +2,7 @@
 
 # Author: Daewon Kim
 # Copyright 2023 Daewon Kim (prudentcircle@smsolutions.co.kr)
-# This script provisions a Virtual Machine needed for Scene04 of OGJS-101.
+# This script provisions an instance needed for Scene04 "보여줘김선임" of OGJS-101.
 # Designed to run on a Debian 12 VM.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@
 # limitations under the License.
 
 echo -e 'root\nroot' | passwd root
-hostnamectl set-hostname o101s04-alone
+hostnamectl set-hostname o101s04-show
 apt-get -y update
 apt-get install -y openssh-server parted xfsprogs spell xz-utils gzip
 sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config
