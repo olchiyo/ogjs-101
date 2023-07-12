@@ -43,7 +43,7 @@ function delete_instance()
 
 function delete_volumes()
 {
-    for (( i=1; i<=$VOLUME_COUNT; i++))
+    for (( i=1; i<=$VOLUME_COUNT; i++ ))
     do
         VOLUME_NAME="$INSTANCE"-vol0"$i"
         lxc storage volume list $STORAGE | grep $VOLUME_NAME
@@ -54,6 +54,7 @@ function delete_volumes()
         else
             echo "ERROR:: $VOLUME_NAME does not exist. EXITING..."
         fi
+    done
 }
 
 function delete_forward()
