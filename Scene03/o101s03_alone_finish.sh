@@ -17,7 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DNAT_IP=""
 INSTANCE="o101s03-alone"
 NETWORK="o101-net"
 STORAGE="default"
