@@ -2,7 +2,7 @@
 
 # Author: Daewon Kim
 # Copyright 2023 Daewon Kim (prudentcircle@smsolutions.co.kr)
-# This script deletes all Virtual Machines and volumes needed for Scene03 of OGJS-101.
+# This script deletes all instances and volumes used for Scene03 of OGJS-101.
 # Designed to run on pre-configured ODROID-M1 machines ONLY.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,6 +47,7 @@ function delete_volumes()
         VOLUME_NAME="$INSTANCE"-vol0"$i"
         lxc storage volume list $STORAGE | grep $VOLUME_NAME
         if [ $? -eq 0 ]
+        then
             echo "$VOLUME_NAME exists. DELETING..."
             lxc storage volume delete $STORAGE $VOLUME_NAME
         fi
