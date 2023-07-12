@@ -35,7 +35,7 @@ function delete_instance()
         lxc delete $INSTANCE --force
     else
         echo "ERROR:: $INSTANCE is not present. Nothing to do. EXITING..."
-        delete_volumes()
+        delete_volumes
         exit 1
     fi
 
