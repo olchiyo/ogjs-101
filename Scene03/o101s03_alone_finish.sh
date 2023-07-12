@@ -32,9 +32,11 @@ function delete_instance()
     if [ $? -eq 0 ];
     then
         echo "$INSTANCE VM exists. DELETING..."
-        lxc stop $INSTANCE --force && lxc delete $INSTANCE --force
+        lxc stop $INSTANCE --force
+        lxc delete $INSTANCE --force
     else
         echo "ERROR:: $INSTANCE is not present. Nothing to do. EXITING..."
+        delete_volumes()
         exit 1
     fi
 
