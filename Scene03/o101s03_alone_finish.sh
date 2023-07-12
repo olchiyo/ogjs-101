@@ -29,7 +29,7 @@ DNAT_PORT=10103
 function delete_instance()
 {
     lxc list | grep $INSTANCE
-    if [ $? -eq 0 ]
+    if [ $? -eq 0 ];
     then
         echo "$INSTANCE VM exists. DELETING..."
         lxc stop $INSTANCE --force && lxc delete $INSTANCE --force
@@ -46,14 +46,13 @@ function delete_volumes()
     do
         VOLUME_NAME="$INSTANCE"-vol0"$i"
         lxc storage volume list $STORAGE | grep $VOLUME_NAME
-        if [ $? -eq 0 ]
+        if [ $? -eq 0 ];
         then
             echo "$VOLUME_NAME exists. DELETING..."
             lxc storage volume delete $STORAGE $VOLUME_NAME
+        else
+            echo "ERROR:: $VOLUME_NAME does not exist. EXITING..."
         fi
-    else
-        echo "ERROR:: $VOLUME_NAME does not exist. EXITING..."
-    fi
 }
 
 function delete_forward()
