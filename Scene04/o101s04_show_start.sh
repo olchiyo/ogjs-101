@@ -164,8 +164,8 @@ then
     lxc network forward create $NETWORK $DNAT_IP
     lxc network forward port add $NETWORK $DNAT_IP tcp $DNAT_PORT $VM_IP 22
 else
-    lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT
-    lxc network forward port add $NETWORK $DNAT_IP tcp $DNAT_PORT $VM_IP 22
+    lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT 2> /dev/null
+    lxc network forward port add $NETWORK $DNAT_IP tcp $DNAT_PORT $VM_IP 22 2> /dev/null
 fi
 
 echo "Enter the following Command to connect to $INSTANCE --"
