@@ -20,7 +20,7 @@
 echo -e 'root\nroot' | passwd root
 hostnamectl set-hostname o101s04-show
 apt-get -y update
-apt-get install -y openssh-server parted xfsprogs spell less
+apt-get install -y openssh-server parted xfsprogs spell less python3-pip python3-full python3-venv
 sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config
 bash -c 'echo "PermitRootLogin yes" >> /etc/ssh/sshd_config'
 systemctl restart ssh
@@ -44,5 +44,35 @@ EOF
 
 curl -L -O https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz
 tar xvf ookla-speedtest-1.2.0-linux-aarch64.tgz
+cp ./speedtest /usr/bin/
 
-cp ookla-speedtest-1.2.0-linux-aarch64/speedtest /usr/bin/
+apt install
+
+python3 -m venv o101s04-show
+o101s04-show/bin/pip install faker
+
+
+cat << EOF > o101s04_genfiles.py
+from faker import Faker
+fake = Faker()
+
+with open("o101s04_csv.txt", mode="w") as f:
+  for i in range(100):
+    line = "{}\t{}\t{}\t{}\n".format(fake.name(), fake.email(), fake.latitude(), fake.longitude())
+    f.write(line)
+  f.close()
+
+with open("o101s04_comma.txt", mode="w") as f:
+  for i in range(100):
+    line = "{},{},{},{},{}\n".format(fake.color_name(), fake.company(), fake.job(), fake.ssn(), fake.phone_number())
+    f.write(line)
+  f.close()
+
+with open("o101s04_space.txt", mode="w") as f:
+  for i in range(100):
+    line = "{} {} {} {} {}\n".format(fake.color_name(), fake.company(), fake.job(), fake.ssn(), fake.phone_number())
+    f.write(line)
+  f.close()
+EOF
+
+o101s04-show/bin/python3 o101s04_genfiles.py
