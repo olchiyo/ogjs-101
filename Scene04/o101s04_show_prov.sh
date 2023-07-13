@@ -70,7 +70,7 @@ with open("o101s04_comma.txt", mode="w") as f:
 
 with open("o101s04_space.txt", mode="w") as f:
   for i in range(100):
-    line = "{} {} {} {} {}\n".format(fake.color_name(), fake.company(), fake.job(), fake.ssn(), fake.phone_number())
+    line = "{}\t{}\t{}\t{}\t{}\n".format(fake.color_name(), fake.company(), fake.job(), fake.ssn(), fake.phone_number())
     f.write(line)
   f.close()
 EOF
