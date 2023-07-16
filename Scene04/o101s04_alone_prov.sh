@@ -20,7 +20,7 @@
 echo -e 'root\nroot' | passwd root
 hostnamectl set-hostname o101s04-alone
 apt-get -y update
-apt-get install -y openssh-server parted xfsprogs spell xz-utils gzip
+apt-get install -y openssh-server less vim
 sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config
 bash -c 'echo "PermitRootLogin yes" >> /etc/ssh/sshd_config'
 systemctl restart ssh
@@ -41,76 +41,3 @@ LC_MEASUREMENT=en_US.UTF-8
 LC_IDENTIFICATION=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 EOF
-
-parted --script /dev/sdb \
-    mklabel msdos \
-    mkpart primary ext4 1MiB 300MiB \
-    mkpart primary xfs 300MiB 800MiB
-
-parted --script /dev/sdc \
-    mklabel msdos \
-    mkpart primary ext3 0% 20% \
-    mkpart primary xfs 20% 60%
-
-mkfs.ext4 /dev/sdb1
-mkfs.xfs /dev/sdb2
-mkfs.ext3 /dev/sdc1
-
-mkdir -p /mnt/ongojishin
-mkdir -p /opt/austin
-mkdir -p /srv/newjeans
-
-
-mount /dev/sdb1 /mnt/ongojishin
-mount /dev/sdb2 /opt/austin
-mount -o noexec,async,ro /dev/sdc1 /srv/newjeans
-
-mkdir -p /tmp/o101s03/maze/{01..10}/{01..10}/{01..10}/{01..10}
-
-# /tmp/o101s03/maze/01/01/02/03/ditto.txt
-
-cat << EOF > /tmp/o101s03/maze/01/03/04/09/relative_path.sh
-ls ../../06/07/../05/../../../01/02/03/ditto.txt 
-ls ../01/../03/../../../04/../09/01/../02/hypeboy.txt
-EOF
-
-current_time=$(date +%s)
-
-for i in {1..100}; do
-    # Generate a random number of days, hours, minutes, and seconds
-    rand_days=$((RANDOM % 365))
-    rand_hours=$((RANDOM % 24))
-    rand_minutes=$((RANDOM % 60))
-    rand_seconds=$((RANDOM % 60))
-    
-    # Calculate the random timestamp by adding the random time intervals
-    rand_timestamp=$((current_time + (rand_days * 24 * 60 * 60) + (rand_hours * 60 * 60) + (rand_minutes * 60) + rand_seconds))
-    
-    # Convert timestamp to date format
-    rand_date=$(date -d "@$rand_timestamp" +'%Y-%m-%d %H:%M:%S')
-    
-    # Generate a random file name
-    rand_filename="/tmp/o101s03/dummy_file_$i.txt"
-    
-    # Create the dummy file with random timestamp
-    touch -d "$rand_date" "$rand_filename"
-done
-
-NUM_FILES=200
-DICT_FILE="/usr/share/dict/words"
-
-for ((i=1; i<=$NUM_FILES; i++))
-do
-    WORD=$(shuf -n 1 "$DICT_FILE")
-    touch /mnt/ongojishin/$WORD.txt
-done
-
-
-NUM_FILES=50
-DICT_FILE="/usr/share/dict/words"
-
-for ((i=1; i<=$NUM_FILES; i++))
-do
-    WORD=$(shuf -n 1 "$DICT_FILE")
-    touch /opt/austin/$WORD.md
-done

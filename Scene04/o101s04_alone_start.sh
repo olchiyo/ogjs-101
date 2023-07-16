@@ -22,7 +22,7 @@ NETWORK="o101-net"
 STORAGE="default"
 VOLUME_COUNT=2
 PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene03/o101s03_alone_prov.sh"
-DNAT_PORT=10104
+DNAT_PORT=11104
 
 function check_network()
 {
@@ -56,7 +56,7 @@ function check_storage()
     fi
 }
 
-function create_instance()
+function create_instance_vm()
 {
     lxc list | grep $INSTANCE
     if [ $? -eq 0 ];
@@ -78,6 +78,40 @@ else
     sleep 2
     echo "$INSTANCE is not present. CREATING..."
     lxc launch images:debian/bookworm/default $INSTANCE --vm --network $NETWORK --storage $STORAGE
+    sleep 5
+    lxc list | grep $INSTANCE
+    if [ $? -eq 0 ];
+    then
+        echo "$INSTANCE successfully created."
+    else
+        echo "[ERROR] $INSTANCE not created. EXITING..."
+        exit 1
+    fi
+fi
+}
+
+function create_instance_lxc()
+{
+    lxc list | grep $INSTANCE
+    if [ $? -eq 0 ];
+then
+    echo "$INSTANCE VM already exists. DELETING..."
+    lxc stop $INSTANCE --force && sleep 1
+    lxc delete $INSTANCE --force && sleep 1
+    lxc launch images:debian/bookworm/default $INSTANCE --network $NETWORK --storage $STORAGE
+    sleep 5
+    lxc list | grep $INSTANCE
+    if [ $? -eq 0 ];
+    then
+        echo "$INSTANCE successfully created."
+    else
+        echo "[ERROR] $INSTANCE not created. EXITING..."
+        exit 1
+    fi
+else
+    sleep 2
+    echo "$INSTANCE is not present. CREATING..."
+    lxc launch images:debian/bookworm/default $INSTANCE --network $NETWORK --storage $STORAGE
     sleep 5
     lxc list | grep $INSTANCE
     if [ $? -eq 0 ];
@@ -137,9 +171,7 @@ else
 fi
 
 check_network
-check_storage
-create_instance
-create_volumes
+create_instance_lxc
 echo " " > ~/.ssh/known_hosts
 
 ## Basic Provisioning
