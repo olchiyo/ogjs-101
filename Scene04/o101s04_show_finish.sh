@@ -59,7 +59,7 @@ function delete_volumes()
 
 function delete_forward()
 {
-    lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT
+    lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT >> /dev/null
 }
 
 delete_instance

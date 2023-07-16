@@ -21,8 +21,8 @@ INSTANCE="o101s04-alone"
 NETWORK="o101-net"
 STORAGE="default"
 VOLUME_COUNT=2
-PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene03/o101s03_alone_prov.sh"
-DNAT_PORT=11104
+PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene04/o101s04_alone_prov.sh"
+DNAT_PORT=10104
 
 function check_network()
 {
