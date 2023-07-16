@@ -25,6 +25,7 @@ PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene0
 DNAT_PORT=10104
 
 
+
 function delete_instance()
 {
     lxc list | grep $INSTANCE
@@ -61,6 +62,22 @@ function delete_forward()
 {
     lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT >> /dev/null
 }
+
+
+
+if [ -z $DNAT_IP ]; 
+then
+    echo "please run command below and run the command again"
+    echo "export DNAT_IP=<Your DNAT IP>"
+    exit 1
+fi
+
+if [[ $DNAT_IP =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "success"
+else
+  echo "ERROR:: Wrong IP Address"
+  exit 1
+fi
 
 delete_instance
 delete_forward
