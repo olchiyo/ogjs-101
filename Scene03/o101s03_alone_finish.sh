@@ -23,8 +23,6 @@ STORAGE="default"
 VOLUME_COUNT=2
 DNAT_PORT=10103
 
-
-
 function delete_instance()
 {
     lxc list | grep $INSTANCE
@@ -59,7 +57,7 @@ function delete_volumes()
 
 function delete_forward()
 {
-    lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT
+    lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT 2> /dev/null
 }
 
 delete_instance
