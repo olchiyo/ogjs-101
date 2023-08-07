@@ -41,3 +41,8 @@ LC_MEASUREMENT=en_US.UTF-8
 LC_IDENTIFICATION=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 EOF
+
+mkdir -p /tmp/hybe/
+
+/usr/games/cowsay -f koala "newjeans-eta" > /tmp/hybe/eta.txt
+/usr/games/cowsay -f unipony "newjeans-newjeans" > /tmp/hybe/newjeans.txt
