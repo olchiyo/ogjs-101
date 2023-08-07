@@ -20,7 +20,7 @@
 echo -e 'root\nroot' | passwd root
 hostnamectl set-hostname o101s05-try02
 apt-get -y update
-apt-get install -y openssh-server parted xfsprogs spell less python3-pip python3-full python3-venv
+apt-get install -y openssh-server parted xfsprogs spell less python3-pip python3-full python3-venv cowsay
 sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config
 bash -c 'echo "PermitRootLogin yes" >> /etc/ssh/sshd_config'
 systemctl restart ssh
