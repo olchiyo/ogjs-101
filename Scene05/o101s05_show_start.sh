@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-INSTANCE="o101s05-try"
+INSTANCE="o101s05-show"
 NETWORK="o101-net"
 STORAGE="default"
 INSTANCE_COUNT=2

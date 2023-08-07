@@ -101,7 +101,7 @@ function create_instances()
         lxc list | grep "$TARGET"
         if [ $? -eq 0 ];
         then
-            echo -e "[INFO]\t$TARGET VM already exists. DELETING..."
+            echo -e "[INFO]\t$TARGET Instance already exists. DELETING..."
             lxc stop $TARGET --force && sleep 1
             lxc delete $TARGET --force && sleep 1
             lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT 2> /dev/null

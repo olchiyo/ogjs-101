@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-INSTANCE="o101s05-show"
+INSTANCE="o101s05-try"
 NETWORK="o101-net"
 STORAGE="default"
 INSTANCE_COUNT=2
@@ -39,6 +39,7 @@ function delete_instance()
         delete_forward
     else
         echo "ERROR:: $INSTANCE is not present. Nothing to do. EXITING..."
+        lxc network forward port remove $NETWORK $DNAT_IP tcp $DNAT_PORT 2> /dev/null
         delete_volumes
         delete_forward
         exit 1
@@ -65,6 +66,7 @@ function delete_instances()
             delete_forward
             exit 1
         fi
+        
         DNAT_PORT=$(( DNAT_PORT+1 ))
     done
 }
