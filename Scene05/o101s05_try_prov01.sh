@@ -18,7 +18,7 @@
 # limitations under the License.
 
 echo -e 'root\nroot' | passwd root
-hostnamectl set-hostname o101s05-try
+hostnamectl set-hostname o101s05-try01
 apt-get -y update
 apt-get install -y openssh-server parted xfsprogs spell less python3-pip python3-full python3-venv
 sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config

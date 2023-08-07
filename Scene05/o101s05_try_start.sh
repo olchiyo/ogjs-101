@@ -23,8 +23,8 @@ STORAGE="default"
 INSTANCE_COUNT=2
 TYPE="Container"
 VOLUME_COUNT=0
-PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene05/o101s05_try_prov01.sh"
-DNAT_PORT=10105
+PROVISION_SCRIPT=("https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene05/o101s05_try_prov01.sh", "https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene05/o101s05_try_prov02.sh")
+DNAT_PORT=11105
 
 function check_network()
 {
@@ -128,7 +128,7 @@ function provision_instance()
 
     lxc exec $TARGET -- bash -c "echo 'deb http://ftp.kr.debian.org/debian bookworm main' > /etc/apt/sources.list.d/korea.list && echo 'deb http://ftp.kr.debian.org/debian bookworm-updates main' >> /etc/apt/sources.list.d/korea.list && echo 'deb http://ftp.kr.debian.org/debian-security/ bookworm-security main' >> /etc/apt/sources.list.d/korea.list && sed -i 's/^\([^#]\)/#\1/g' /etc/apt/sources.list"
     lxc exec $TARGET -- bash -c "apt-get update -y && apt-get install -y curl"
-    lxc exec $TARGET -- bash -c "curl -fsSL -H 'Cache-Control: no-cache, no-store' $PROVISION_SCRIPT | bash"
+    lxc exec $TARGET -- bash -c "curl -fsSL -H 'Cache-Control: no-cache, no-store' ${$PROVISION_SCRIPT[$(( i-1 ))]} | bash"
 
     VM_IP=$(lxc list | grep $TARGET | awk '{print $6}')
 
