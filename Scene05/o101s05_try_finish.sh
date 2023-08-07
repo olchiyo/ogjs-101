@@ -71,8 +71,6 @@ function delete_instances()
     done
 }
 
-}
-
 function delete_volumes()
 {
     for (( i=1; i<=$VOLUME_COUNT; i++ ))
