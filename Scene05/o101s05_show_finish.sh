@@ -23,7 +23,7 @@ STORAGE="default"
 INSTANCE_COUNT=2
 TYPE="Container"
 VOLUME_COUNT=0
-PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene05/o101s05_try_prov01.sh"
+PROVISION_SCRIPT="https://raw.githubusercontent.com/olchiyo/ogjs-101/main/Scene05/o101s05_show_prov.sh"
 DNAT_PORT=10105
 
 
