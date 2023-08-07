@@ -128,7 +128,7 @@ function provision_instance()
 
     lxc exec $TARGET -- bash -c "echo 'deb http://ftp.kr.debian.org/debian bookworm main' > /etc/apt/sources.list.d/korea.list && echo 'deb http://ftp.kr.debian.org/debian bookworm-updates main' >> /etc/apt/sources.list.d/korea.list && echo 'deb http://ftp.kr.debian.org/debian-security/ bookworm-security main' >> /etc/apt/sources.list.d/korea.list && sed -i 's/^\([^#]\)/#\1/g' /etc/apt/sources.list"
     lxc exec $TARGET -- bash -c "apt-get update -y && apt-get install -y curl"
-    lxc exec $TARGET -- bash -c "curl -fsSL -H 'Cache-Control: no-cache, no-store' ${$PROVISION_SCRIPT[$(( i-1 ))]} | bash"
+    lxc exec $TARGET -- bash -c "curl -fsSL -H 'Cache-Control: no-cache, no-store' ${PROVISION_SCRIPT[$(( i-1 ))]} | bash"
 
     VM_IP=$(lxc list | grep $TARGET | awk '{print $6}')
 
